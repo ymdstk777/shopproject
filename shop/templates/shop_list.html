@@ -1,0 +1,48 @@
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for record in object_list %}
+                <div class="col mb-5">
+                    <div class="card shadow-sm">
+                        <img src="{{ record.product_image.url }}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="Product Image">
+                        <div class="card-body">
+                            <p class="card-text">{{ record.title }}</p>
+ 
+                            {% if record.id in sold_out_items %}
+                                <p class="text-danger">Sold Out</p>
+                            {% else %}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-primary" onclick="location.href='{% url 'shop:shop_detail' record.pk %}'">詳細</button>
+                                        {% if record.user != request.user %}
+                                            <button type="button" class="btn btn-sm btn-success" onclick="location.href='{% url 'shop:shop_buy' pk=record.pk %}'">購入</button>
+                                        {% else %}
+                                            <button type="button" class="btn btn-sm btn-secondary" disabled>購入不可</button>
+                                        {% endif %}
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='{% url 'shop:shops_cat' category=record.category.id %}'">
+                                            {{ record.category.title }}
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endif %}
+ 
+                            <a href="{% url 'shop:user_list' user=record.user.id %}">
+                                <small class="text-muted">{{ record.user.username }}</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+ 
+ 
+<style>
+    .btn {
+        height: 40px; width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    </style>

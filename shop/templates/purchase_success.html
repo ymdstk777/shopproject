@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="alert alert-success">
+            <h4 class="alert-heading">購入が完了しました！</h4>
+            <p>商品の購入が成功しました。</p>
+            <hr>
+            <a href="{% url 'shop:index' %}" class="btn btn-primary">ショップに戻る</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
